@@ -105,7 +105,7 @@ var SessionWorkspace = Backbone.Model.extend({
                         Saiku.tabs.add(new DashboardViewTab({file: reports[i].path}));
                     }
                     else {
-                        if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+if (false) {
                             Saiku.tabs.add(new SplashScreen());
                         }
                         else if (!Settings.INITIAL_QUERY) {
@@ -167,7 +167,7 @@ var SessionWorkspace = Backbone.Model.extend({
             }
 
             if (Settings.DEFAULT_REPORT_SHOW) {
-                if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+if (false) {
                     Saiku.tabs.add(new SplashScreen());
                 }
                 else if(!Settings.INITIAL_QUERY) {
@@ -228,7 +228,7 @@ var SessionWorkspace = Backbone.Model.extend({
 
                                     }
                                     else {
-                                        if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+if (false) {
                                             Saiku.tabs.add(new SplashScreen());
                                         }
                                         else if(!Settings.INITIAL_QUERY) {
@@ -254,7 +254,7 @@ var SessionWorkspace = Backbone.Model.extend({
                         }
                     }
                     else {
-                        if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+if (false) {
                             Saiku.tabs.add(new SplashScreen());
                         }
                         else if(!Settings.INITIAL_QUERY) {
@@ -282,7 +282,7 @@ var SessionWorkspace = Backbone.Model.extend({
             }
             else {
                 // Saiku.splash.render();
-                if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+if (false) {
                     Saiku.tabs.add(new SplashScreen());
                 }
                 else if(!Settings.INITIAL_QUERY) {

@@ -19,7 +19,7 @@
  */
 var Settings = {
     VERSION: "Saiku-${version}",
-    LICENSE: {},
+LICENSE: {licenseType: 'open source'},
     BIPLUGIN: false,
     BIPLUGIN5: false,
     BASE_URL: window.location.origin,
