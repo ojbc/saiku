@@ -1,0 +1,9 @@
+<FederationIDLookupCredentialExtractor-config>
+    <CredentialMapping>
+        <FederationID>Part1:IDP:Part2:USER:demouser</FederationID>
+        <Credential>
+            <username>role1user</username>
+            <password>role1user</password>
+        </Credential>
+    </CredentialMapping>
+</FederationIDLookupCredentialExtractor-config>

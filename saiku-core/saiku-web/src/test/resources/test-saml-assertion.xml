@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saml2:Assertion xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+	ID="_bf670aca9cb42949008841299188cd82" IssueInstant="2013-03-25T15:36:29.098Z"
+	Version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">https://idp.ojbc-local.org:9443/idp/shibboleth
+	</saml2:Issuer>
+	<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+		<ds:SignedInfo>
+			<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+			<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+			<ds:Reference URI="#_bf670aca9cb42949008841299188cd82">
+				<ds:Transforms>
+					<ds:Transform
+						Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+					<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+						<ec:InclusiveNamespaces xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"
+							PrefixList="xs" />
+					</ds:Transform>
+				</ds:Transforms>
+				<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+				<ds:DigestValue>...</ds:DigestValue>
+			</ds:Reference>
+		</ds:SignedInfo>
+		<ds:SignatureValue>...</ds:SignatureValue>
+		<ds:KeyInfo>
+			<ds:X509Data>
+				<ds:X509Certificate>...</ds:X509Certificate>
+			</ds:X509Data>
+		</ds:KeyInfo>
+	</ds:Signature>
+	<saml2:Subject>
+		<saml2:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+			NameQualifier="https://idp.ojbc-local.org:9443/idp/shibboleth"
+			SPNameQualifier="https://sp.ojbc-local.org/shibboleth">_387c25449c33c64f8fef276365872728</saml2:NameID>
+		<saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+			<saml2:SubjectConfirmationData Address="127.0.0.1"
+				InResponseTo="_8dd81c84a8d1248e40533b4f183c720d" NotOnOrAfter="2013-03-25T15:41:29.098Z"
+				Recipient="https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST" />
+		</saml2:SubjectConfirmation>
+	</saml2:Subject>
+	<saml2:Conditions NotBefore="2013-03-25T15:36:29.098Z"
+		NotOnOrAfter="2013-03-25T15:41:29.098Z">
+		<saml2:AudienceRestriction>
+			<saml2:Audience>https://sp.ojbc-local.org/shibboleth</saml2:Audience>
+		</saml2:AudienceRestriction>
+	</saml2:Conditions>
+	<saml2:AuthnStatement AuthnInstant="2013-03-25T15:36:29.079Z"
+		SessionIndex="58ff4718ffa075f029352a4404e18b05afa5b1e663e022bab661de6ab9035b97">
+		<saml2:SubjectLocality Address="127.0.0.1" />
+		<saml2:AuthnContext>
+			<saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport
+			</saml2:AuthnContextClassRef>
+		</saml2:AuthnContext>
+	</saml2:AuthnStatement>
+	<saml2:AttributeStatement>
+		<saml2:Attribute Name="gfipm:2.0:user:LocalId"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">demouser</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:SurName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">User</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:EmployerName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">My Org</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:EmployeePositionName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">Staffer</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:GivenName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">Demo</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:CommonName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">Demo User</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:FederationId"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">Part1:IDP:Part2:USER:demouser</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:TelephoneNumber"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">360-555-1212</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:EmployerSubUnitName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">Sub Unit</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:EmailAddressText"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">user@myorg.org</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:IdentityProviderId"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">Part1:IDP:Part2</saml2:AttributeValue>
+		</saml2:Attribute>
+	</saml2:AttributeStatement>
+</saml2:Assertion>

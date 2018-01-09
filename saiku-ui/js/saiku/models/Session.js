@@ -55,7 +55,7 @@ var Session = Backbone.Model.extend({
 			this.atemptedToLoginByCookie = true;
 			this.login('orbis', 'orbis');
 		} else {
-			if (this.sessionid === null || this.username === null || this.password === null) {
+      if (this.sessionid === null || this.username === null || this.password === null) {
 				var that = this;
 				this.clear();
 				this.fetch({ success: this.process_session, error: this.brute_force });
@@ -98,12 +98,15 @@ var Session = Backbone.Model.extend({
         if ((response === null || response.sessionid == null)) {
             // Open form and retrieve credentials
             Saiku.ui.unblock();
-            if (Settings.DEMO) {
-                this.form = new DemoLoginForm({ session: this });
-            } else {
-                this.form = new LoginForm({ session: this });
-            }
-            this.form.render().open();
+            // Disable login form for SAML login
+            // if (Settings.DEMO) {
+            //    this.form = new DemoLoginForm({ session: this });
+            // } else {
+            //    this.form = new LoginForm({ session: this });
+            // }
+            // this.form.render().open();
+            // end disable
+            this.login("","");
         } else {
             this.sessionid = response.sessionid;
             this.roles = response.roles;
