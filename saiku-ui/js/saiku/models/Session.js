@@ -114,7 +114,7 @@ var Session = Backbone.Model.extend({
     },
 
     process_session: function(model, response) {
-        if ((response === null || response.sessionid == null)) {
+        if ((response == null || response.sessionid == null)) {
             // Open form and retrieve credentials
             Saiku.ui.unblock();
             // Disable login form for SAML login

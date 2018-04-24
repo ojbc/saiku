@@ -380,6 +380,7 @@ Backbone.emulateHTTP = false;
  */
 if (!Settings.BIPLUGIN) {
     $(document).ready(function() {
+
         var plugins = new PluginCollection();
 
         plugins.fetch({
@@ -512,6 +513,7 @@ if (!Settings.BIPLUGIN) {
                 });
             }
         });
+        
     });
 }
 
