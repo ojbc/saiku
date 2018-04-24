@@ -83,6 +83,7 @@
         <property name="sessionRepo" ref="sessionRepo"/>
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authorisationPredicate" ref="authorisationPredicate"/>
+        <property name="assertionCredentialExtractor" ref="samlAssertionCredentialExtractor"/>
         <property name="adminLoginIfNoAssertion" value="true"/>
     </bean>
 

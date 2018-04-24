@@ -6,10 +6,4 @@
             <password>role1user</password>
         </Credential>
     </CredentialMapping>
-    <DefaultCredentialMapping>
-    		<Credential>
-            <username>role2user</username>
-            <password>role2user</password>
-        </Credential>
-    </DefaultCredentialMapping>
 </FederationIDLookupCredentialExtractor-config>

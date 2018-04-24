@@ -20,6 +20,7 @@ public class ExternalSamlSessionServiceTest {
 	private static final Logger log = LoggerFactory.getLogger(ExternalSamlSessionServiceTest.class);
 
 	public static final String TEST_ASSERTION_FILE_PATH = "/test-saml-assertion.xml";
+	public static final String TEST_ASSERTION_UNKNOWN_ID_FILE_PATH = "/test-saml-assertion-unknown-federation-id.xml";
 	private ExternalSamlSessionService service;
 	private FederationIDLookupCredentialExtractor assertionCredentialExtractor;
 
@@ -49,6 +50,17 @@ public class ExternalSamlSessionServiceTest {
 		Map<String, String> credentialMap = assertionCredentialExtractor.extractCredential(assertionDocument);
 		assertNotNull(credentialMap);
 		assertEquals(2, credentialMap.size());
+		assertEquals("role1user", credentialMap.get(FederationIDLookupCredentialExtractor.USERNAME_KEY));
+	}
+
+	@Test
+	public void testExtractDefaultCredential() throws Exception {
+		Document assertionDocument = service.parseAssertion(getClass().getResourceAsStream(TEST_ASSERTION_UNKNOWN_ID_FILE_PATH));
+		assertionCredentialExtractor.setConfigFilePath("classpath:/test-saml-user-config-file.xml");
+		Map<String, String> credentialMap = assertionCredentialExtractor.extractCredential(assertionDocument);
+		assertNotNull(credentialMap);
+		assertEquals(2, credentialMap.size());
+		assertEquals("role2user", credentialMap.get(FederationIDLookupCredentialExtractor.USERNAME_KEY));
 	}
 
 	@Test

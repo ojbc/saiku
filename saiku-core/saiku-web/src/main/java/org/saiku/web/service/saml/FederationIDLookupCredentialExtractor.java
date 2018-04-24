@@ -27,6 +27,7 @@ public class FederationIDLookupCredentialExtractor implements IAssertionCredenti
 
 	private String configFilePath;
 	private Map<String, Map<String, String>> credentialMap = new HashMap<>();
+	private Map<String, String> defaultCredential = null;
 
 	@Override
 	public Map<String, String> extractCredential(Document assertionDocument) {
@@ -36,6 +37,12 @@ public class FederationIDLookupCredentialExtractor implements IAssertionCredenti
 			log.warn("No Federation ID found in assertion");
 		} else {
 			ret = credentialMap.get(fid);
+			if (ret == null) {
+				ret = defaultCredential;
+				if (ret != null) {
+					log.info("Federation ID " + fid + " not found in credential map, returning default");
+				}
+			}
 		}
 		return ret;
 	}
@@ -66,16 +73,31 @@ public class FederationIDLookupCredentialExtractor implements IAssertionCredenti
 				Node node = nodes.item(i);
 				String fid = (String) xPath.evaluate("FederationID", node, XPathConstants.STRING);
 				log.info("Added credential mapping for Federation ID {}", fid);
-				String username = (String) xPath.evaluate("Credential/username", node, XPathConstants.STRING);
-				String password = (String) xPath.evaluate("Credential/password", node, XPathConstants.STRING);
-				HashMap<String, String> credentialSubMap = new HashMap<>();
-				credentialSubMap.put(USERNAME_KEY, username);
-				credentialSubMap.put(PASSWORD_KEY, password);
-				credentialMap.put(fid, credentialSubMap);
+				credentialMap.put(fid, createCredentialMap(node));
+			}
+			nodes = (NodeList) xPath.evaluate("/FederationIDLookupCredentialExtractor-config/DefaultCredentialMapping", mappingDoc, XPathConstants.NODESET);
+			if (nodes.getLength() == 0) {
+				log.warn("No DefaultCredentialMapping element found in config file, so Federation IDs without explicit mapping will be assigned null credentials");
+			} else if (nodes.getLength() > 1) {
+				log.warn("Multiple DefaultCredentialMapping elements found in config file, will use only the first one");
+			} else {
+				Node node = nodes.item(0);
+				defaultCredential = createCredentialMap(node);
+				log.info("Added default credential map with Saiku user " + defaultCredential.get(USERNAME_KEY));
 			}
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private HashMap<String, String> createCredentialMap(Node parentNode) throws XPathExpressionException {
+		XPath xPath = XPathFactory.newInstance().newXPath();
+		String username = (String) xPath.evaluate("Credential/username", parentNode, XPathConstants.STRING);
+		String password = (String) xPath.evaluate("Credential/password", parentNode, XPathConstants.STRING);
+		HashMap<String, String> credentialSubMap = new HashMap<>();
+		credentialSubMap.put(USERNAME_KEY, username);
+		credentialSubMap.put(PASSWORD_KEY, password);
+		return credentialSubMap;
 	}
 
 	String getFederationID(Document assertion) {
