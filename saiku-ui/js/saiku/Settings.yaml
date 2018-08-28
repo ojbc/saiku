@@ -9,7 +9,8 @@
 #   - YAML Validator: https://yamlvalidator.com/
 # =======================================================================
 VERSION: Saiku-
-LICENSE: null
+LICENSE:
+  licenseType: community_edition
 BIPLUGIN: false
 BIPLUGIN5: false
 TOMCAT_WEBAPP: /saiku

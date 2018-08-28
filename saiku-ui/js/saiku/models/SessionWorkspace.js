@@ -1,4 +1,4 @@
-/*  
+/*
  *   Copyright 2012 OSBI Ltd
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@
  * @returns {Session}
  */
 var SessionWorkspace = Backbone.Model.extend({
-        
+
     initialize: function(args, options) {
         // Attach a custom event bus to this model
         _.extend(this, Backbone.Events);
@@ -39,10 +39,10 @@ var SessionWorkspace = Backbone.Model.extend({
                 localStorage.clear();
                 localStorage.setItem('saiku-version', Settings.VERSION);
             }
-        }        
+        }
         Saiku.ui.block("Loading datasources....");
         this.fetch({success:this.process_datasources},{});
-        
+
     },
 
     refresh: function() {
@@ -53,12 +53,12 @@ var SessionWorkspace = Backbone.Model.extend({
         this.clear();
 
         if(typeof localStorage !== "undefined" && localStorage) {
-          localStorage.setItem('saiku-version', Settings.VERSION);  
+          localStorage.setItem('saiku-version', Settings.VERSION);
         }
 
         this.fetch({success:this.process_datasources},{});
     },
-        
+
     destroy: function() {
         if (typeof localStorage !== "undefined" && localStorage) {
             localStorage.clear();
@@ -105,10 +105,13 @@ var SessionWorkspace = Backbone.Model.extend({
                         Saiku.tabs.add(new DashboardViewTab({file: reports[i].path}));
                     }
                     else {
-                        if (!Settings.INITIAL_QUERY && paramsURI.splash) {
-                            Saiku.tabs.add(new SplashScreen());
-                        }
-                        else if (!Settings.INITIAL_QUERY) {
+                        // if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+                        //     Saiku.tabs.add(new SplashScreen());
+                        // }
+                        // else if (!Settings.INITIAL_QUERY) {
+                        //     Saiku.tabs.add(new Workspace());
+                        // }
+                        if (!Settings.INITIAL_QUERY) {
                             Saiku.tabs.add(new Workspace());
                         }
                     }
@@ -167,10 +170,13 @@ var SessionWorkspace = Backbone.Model.extend({
             }
 
             if (Settings.DEFAULT_REPORT_SHOW) {
-                if (!Settings.INITIAL_QUERY && paramsURI.splash) {
-                    Saiku.tabs.add(new SplashScreen());
-                }
-                else if(!Settings.INITIAL_QUERY) {
+                // if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+                //     Saiku.tabs.add(new SplashScreen());
+                // }
+                // else if(!Settings.INITIAL_QUERY) {
+                //     Saiku.tabs.add(new Workspace());
+                // }
+                if (!Settings.INITIAL_QUERY) {
                     Saiku.tabs.add(new Workspace());
                 }
                 var globalreports = Settings.DEFAULT_REPORTS['_'];
@@ -228,10 +234,13 @@ var SessionWorkspace = Backbone.Model.extend({
 
                                     }
                                     else {
-                                        if (!Settings.INITIAL_QUERY && paramsURI.splash) {
-                                            Saiku.tabs.add(new SplashScreen());
-                                        }
-                                        else if(!Settings.INITIAL_QUERY) {
+                                        // if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+                                        //     Saiku.tabs.add(new SplashScreen());
+                                        // }
+                                        // else if(!Settings.INITIAL_QUERY) {
+                                        //     Saiku.tabs.add(new Workspace());
+                                        // }
+                                        if (!Settings.INITIAL_QUERY) {
                                             Saiku.tabs.add(new Workspace());
                                         }
                                     }
@@ -254,10 +263,13 @@ var SessionWorkspace = Backbone.Model.extend({
                         }
                     }
                     else {
-                        if (!Settings.INITIAL_QUERY && paramsURI.splash) {
-                            Saiku.tabs.add(new SplashScreen());
-                        }
-                        else if(!Settings.INITIAL_QUERY) {
+                        // if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+                        //     Saiku.tabs.add(new SplashScreen());
+                        // }
+                        // else if(!Settings.INITIAL_QUERY) {
+                        //     Saiku.tabs.add(new Workspace());
+                        // }
+                        if (!Settings.INITIAL_QUERY) {
                             Saiku.tabs.add(new Workspace());
                         }
                     }
@@ -282,15 +294,18 @@ var SessionWorkspace = Backbone.Model.extend({
             }
             else {
                 // Saiku.splash.render();
-                if (!Settings.INITIAL_QUERY && paramsURI.splash) {
-                    Saiku.tabs.add(new SplashScreen());
-                }
-                else if(!Settings.INITIAL_QUERY) {
+                // if (!Settings.INITIAL_QUERY && paramsURI.splash) {
+                //     Saiku.tabs.add(new SplashScreen());
+                // }
+                // else if(!Settings.INITIAL_QUERY) {
+                //     Saiku.tabs.add(new Workspace());
+                // }
+                if (!Settings.INITIAL_QUERY) {
                     Saiku.tabs.add(new Workspace());
                 }
                 //if (!Settings.INITIAL_QUERY) {
                 //    Saiku.tabs.add(new Workspace());
-                //} 
+                //}
             }
         }
         else {
@@ -299,8 +314,8 @@ var SessionWorkspace = Backbone.Model.extend({
             }
         }
     },
-    
-    prefetch_dimensions: function() {        
+
+    prefetch_dimensions: function() {
         for(var i = 0, iLen = this.connections.length; i < iLen; i++) {
             var connection = this.connections[i];
             for(var j = 0, jLen = connection.catalogs.length; j < jLen; j++) {
@@ -313,7 +328,7 @@ var SessionWorkspace = Backbone.Model.extend({
                             ((schema.name === "" || schema.name === null) ? "null" : schema.name) +
                             "/" + encodeURIComponent(cube.name);
 
-                        if (typeof localStorage !== "undefined" && localStorage && 
+                        if (typeof localStorage !== "undefined" && localStorage &&
                             localStorage.getItem("cube." + key) !== null) {
                             this.cube[key] = new Cube(JSON.parse(localStorage.getItem("cube." + key)));
                         } else {
@@ -326,14 +341,14 @@ var SessionWorkspace = Backbone.Model.extend({
                 }
             }
         }
-        
+
         // Start routing
         if (!this.initialized && Backbone.history) {
             Backbone.history.start();
             this.initialized = true;
         }
     },
-    
+
     url: function() {
         if (this.first) {
             this.first = false;

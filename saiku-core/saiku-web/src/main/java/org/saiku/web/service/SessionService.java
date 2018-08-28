@@ -1,4 +1,4 @@
-/*  
+/*
  *   Copyright 2012 OSBI Ltd
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,24 +99,24 @@ public class SessionService implements ISessionService {
 		HttpSession session = ((HttpServletRequest)req).getSession(true);
 		session.getId();
 		sessionRepo.setSession(session);
-		try {
-			sl = l.getLicense();
-		} catch (Exception e) {
-			log.debug("Could not process license", e);
-			throw new LicenseException("Error fetching license. Get a free license from http://licensing.meteorite.bi. You can upload it at /upload.html");
-		}
-
-		if (sl != null) {
-
-			try {
-				l.validateLicense();
-			} catch (RepositoryException | IOException | ClassNotFoundException e) {
-				log.debug("Repository Exception, couldn't get license", e);
-				throw new LicenseException("Error fetching license. Please check your logs.");
-			}
-
-			try {
-				if (l.getLicense() instanceof SaikuLicense2) {
+		// try {
+		// 	sl = l.getLicense();
+		// } catch (Exception e) {
+		// 	log.debug("Could not process license", e);
+		// 	throw new LicenseException("Error fetching license. Get a free license from http://licensing.meteorite.bi. You can upload it at /upload.html");
+		// }
+		//
+		// if (sl != null) {
+		//
+		// 	try {
+		// 		l.validateLicense();
+		// 	} catch (RepositoryException | IOException | ClassNotFoundException e) {
+		// 		log.debug("Repository Exception, couldn't get license", e);
+		// 		throw new LicenseException("Error fetching license. Please check your logs.");
+		// 	}
+		//
+		// 	try {
+		// 		if (l.getLicense() instanceof SaikuLicense2) {
 
                     if (authenticationManager != null) {
                         authenticate(req, username, password);
@@ -135,13 +135,13 @@ public class SessionService implements ISessionService {
                         }
                     }
                     return new HashMap<>();
-                }
-			} catch (IOException | ClassNotFoundException | RepositoryException e) {
-				log.debug("Repository Exception, couldn't get license", e);
-				throw new LicenseException("Error fetching license. Please check your logs.");
-			}
-		}
-		return null;
+    //             }
+		// 	} catch (IOException | ClassNotFoundException | RepositoryException e) {
+		// 		log.debug("Repository Exception, couldn't get license", e);
+		// 		throw new LicenseException("Error fetching license. Please check your logs.");
+		// 	}
+		// }
+		// return null;
 	}
 
 	private void createSession(Authentication auth, String username, String password) {
@@ -149,27 +149,27 @@ public class SessionService implements ISessionService {
 		if (auth ==  null || !auth.isAuthenticated()) {
 			return;
 		}
-		
-		boolean isAnonymousUser = (auth instanceof AnonymousAuthenticationToken);		
+
+		boolean isAnonymousUser = (auth instanceof AnonymousAuthenticationToken);
 		Object p = auth.getPrincipal();
 		String authUser = getUsername(p);
 		boolean isAnonymous = (isAnonymousUser || StringUtils.equals("anonymousUser", authUser));
 		boolean isAnonOk = (!isAnonymous || (isAnonymous && anonymous));
-			
+
 		if (isAnonOk && auth.isAuthenticated() && p != null && !sessionHolder.containsKey(p)) {
 			Map<String, Object> session = new HashMap<>();
-			
+
 			if (isAnonymous) {
 				log.debug("Creating Session for Anonymous User");
 			}
-			
+
 			if (StringUtils.isNotBlank(username)) {
 				session.put("username", username);
 			} else {
 				session.put("username", authUser);
 			}
 			if (StringUtils.isNotBlank(password)) {
-				session.put("password", password);		
+				session.put("password", password);
 			}
 			session.put("sessionid", UUID.randomUUID().toString());
 			session.put("authid", RequestContextHolder.currentRequestAttributes().getSessionId());
@@ -178,17 +178,17 @@ public class SessionService implements ISessionService {
 				roles.add(ga.getAuthority());
 			}
 			session.put("roles", roles);
-			
+
 			sessionHolder.put(p, session);
 		}
 
 	}
 
 	private String getUsername(Object p) {
-		
+
 		if (p instanceof UserDetails) {
 			  return ((UserDetails)p).getUsername();
-		} 
+		}
 		return p.toString();
 	}
 
@@ -234,7 +234,7 @@ public class SessionService implements ISessionService {
 	 * @see org.saiku.web.service.ISessionService#getSession(javax.servlet.http.HttpServletRequest)
 	 */
 	public Map<String,Object> getSession() {
-		if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {			
+		if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			Object p = auth.getPrincipal();
 
@@ -253,15 +253,15 @@ public class SessionService implements ISessionService {
 
 		return new HashMap<>();
 	}
-	
+
 	public Map<String,Object> getAllSessionObjects() {
-		if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {			
+		if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			Object p = auth.getPrincipal();
 			//createSession(auth, null, null);
 			if (sessionHolder.containsKey(p)) {
 				Map<String,Object> r = new HashMap<>();
-				r.putAll(sessionHolder.get(p)); 
+				r.putAll(sessionHolder.get(p));
 				return r;
 			}
 
