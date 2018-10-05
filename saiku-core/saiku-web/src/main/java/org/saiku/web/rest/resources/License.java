@@ -74,7 +74,7 @@ public class License {
     try {
       return Response.ok().entity(licenseUtils.getLicense()).build();
     } catch (IOException | RepositoryException | ClassNotFoundException e) {
-      e.printStackTrace();
+      // e.printStackTrace();
     }
     return Response.serverError().build();
   }
