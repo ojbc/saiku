@@ -79,12 +79,16 @@
         <aop:scoped-proxy/>
     </bean>
 
-    <bean id="sessionService" class="org.saiku.web.service.SessionService">
+    <bean id="sessionService" class="org.saiku.web.service.saml.ExternalSamlSessionService">
         <property name="sessionRepo" ref="sessionRepo"/>
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authorisationPredicate" ref="authorisationPredicate"/>
-        <property name="l" ref="licenseUtilsBean"/>
-        <property name="orbisAuthEnabled" value="${orbis.auth.enabled}"/>
+        <property name="assertionCredentialExtractor" ref="samlAssertionCredentialExtractor"/>
+        <property name="adminLoginIfNoAssertion" value="true"/>
+    </bean>
+
+    <bean id="samlAssertionCredentialExtractor" class="org.saiku.web.service.saml.FederationIDLookupCredentialExtractor">
+      <property name="configFilePath" value="file:///opt/saiku-config/saml-user-config.xml"/>
     </bean>
 
     <bean id="securityContextPersistenceFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/>

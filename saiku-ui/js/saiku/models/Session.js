@@ -64,7 +64,7 @@ var Session = Backbone.Model.extend({
               licenseType: 'Orbis',
               expiration: Date.now() + ONE_YEAR
             }
-            
+
             this.login(authCookie, authCookie);
 		} else {
 			if (this.sessionid === null || this.username === null || this.password === null) {
@@ -84,7 +84,7 @@ var Session = Backbone.Model.extend({
 	getCookie: function(name) {
 		var value = "; " + document.cookie;
 		var parts = value.split("; " + name + "=");
-        
+
 		if (parts.length == 2) {
             var cookieVal = parts.pop().split(";").shift();
             return cookieVal;
@@ -114,15 +114,18 @@ var Session = Backbone.Model.extend({
     },
 
     process_session: function(model, response) {
-        if ((response === null || response.sessionid == null)) {
+        if ((response == null || response.sessionid == null)) {
             // Open form and retrieve credentials
             Saiku.ui.unblock();
-            if (Settings.DEMO) {
-                this.form = new DemoLoginForm({ session: this });
-            } else {
-                this.form = new LoginForm({ session: this });
-            }
-            this.form.render().open();
+            // Disable login form for SAML login
+            // if (Settings.DEMO) {
+            //     this.form = new DemoLoginForm({ session: this });
+            // } else {
+            //     this.form = new LoginForm({ session: this });
+            // }
+            // this.form.render().open();
+            // end disable
+            this.login("","");
         } else {
             this.sessionid = response.sessionid;
             this.roles = response.roles;
